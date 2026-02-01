@@ -1,0 +1,8 @@
+# Edge Case Test Cases for `createOrder`
+
+| Test ID | Description                              | Steps                                                                                     | Expected Result                                                                 |
+|---------|------------------------------------------|-------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
+| TC009   | Create order with zero quantity items    | 1. Send a POST request with items having `quantity: 0`.                                  | Error message indicating invalid quantity.                                     |
+| TC010   | Create order with extremely large values | 1. Send a POST request with very high `price` or `quantity` values.                      | Order is created successfully, and total amount is calculated correctly.       |
+| TC011   | Create order with empty shipping address | 1. Send a POST request with an empty `shippingAddress`.                                  | Error message indicating invalid shipping address.                             |
+| TC012   | Create order with empty billing address  | 1. Send a POST request with an empty `billingAddress`.                                   | Error message indicating invalid billing address.                              |
