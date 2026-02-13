@@ -27,17 +27,10 @@ describe('CartService - removeFromCart', () => {
   });
 
   /**
-   * ============================================================
-   * TEST 1: Generated with Copilot
-   * Time taken: ~30 seconds (including prompt and generation)
-   * ============================================================
-   * This test verifies that an item is completely removed from the 
-   * cart's items array and that totalItems and totalAmount are 
-   * recalculated correctly after removal.
+   * Refactored test with improved clarity and conciseness
    */
-  describe('Copilot-generated test', () => {
-    it('should completely remove an item from the cart and recalculate totals correctly', async () => {
-      // Arrange: Set up a cart with two different products
+  describe('Copilot-generated test (refactored)', () => {
+    it('should remove item and recalculate cart totals', async () => {
       const userId = 'user-1';
       const product1 = createMockProduct({ id: 'product-1', name: 'Apple', price: 2.50 });
       const product2 = createMockProduct({ id: 'product-2', name: 'Banana', price: 1.50 });
@@ -46,24 +39,15 @@ describe('CartService - removeFromCart', () => {
         .mockResolvedValueOnce(product1)
         .mockResolvedValueOnce(product2);
 
-      // Add both products to the cart
-      await cartService.addToCart(userId, 'product-1', 3); // 3 apples = $7.50
-      await cartService.addToCart(userId, 'product-2', 2); // 2 bananas = $3.00
-      // Total before removal: 5 items, $10.50
+      await cartService.addToCart(userId, 'product-1', 3);
+      await cartService.addToCart(userId, 'product-2', 2);
 
-      // Act: Remove product-1 (Apple) from the cart
-      const cartAfterRemoval = await cartService.removeFromCart(userId, 'product-1');
+      const cart = await cartService.removeFromCart(userId, 'product-1');
 
-      // Assert: Verify item is completely removed from items array
-      expect(cartAfterRemoval.items).toHaveLength(1);
-      expect(cartAfterRemoval.items.find(item => item.id === 'product-1')).toBeUndefined();
-      expect(cartAfterRemoval.items[0].id).toBe('product-2');
-
-      // Assert: Verify totalItems is recalculated correctly
-      expect(cartAfterRemoval.totalItems).toBe(2); // Only 2 bananas remain
-
-      // Assert: Verify totalAmount is recalculated correctly
-      expect(cartAfterRemoval.totalAmount).toBe(3.00); // Only bananas: 1.50 * 2 = 3.00
+      expect(cart.items).toHaveLength(1);
+      expect(cart.items[0].id).toBe('product-2');
+      expect(cart.totalItems).toBe(2);
+      expect(cart.totalAmount).toBe(3.00);
     });
   });
 
